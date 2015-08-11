@@ -10,7 +10,7 @@ namespace duinocom.duinocomConsole
 
 			var message = args [0];
 
-			var detector = new Duinocom.DuinoPortDetector ("duinocom");
+			var detector = new duinocom.DuinoPortDetector ("duinocom");
 
 			var port = detector.Detect ();
 

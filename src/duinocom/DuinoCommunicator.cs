@@ -25,25 +25,10 @@ namespace duinocom
 
 		public void Send(string arduinoCommand)
 		{
-			//if (!Port.IsOpen)
-			//	Open ();
-			
-			Thread.Sleep (1500); // Fails if this delay is any shorter
+			Thread.Sleep (1500);
 
 			Port.Write (arduinoCommand);
 			Port.Write (Port.NewLine);
-
-			/*Thread.Sleep (500); // Fails if this delay is any shorter
-
-			int count = Port.BytesToRead;
-			int intReturnASCII = 0;
-			while (count > 0) {
-				intReturnASCII = Port.ReadByte ();
-				returnMessage = returnMessage + Convert.ToChar (intReturnASCII);
-				count--;
-			}
-
-			return returnMessage;*/
 		}
 
 		public string SendAndRead(string arduinoCommand)
@@ -51,24 +36,29 @@ namespace duinocom
 			if (!Port.IsOpen)
 				Open ();
 			
-			string returnMessage = "";
-
 			Thread.Sleep (1500); // Fails if this delay is any shorter
 
 			Port.Write (arduinoCommand);
 			Port.Write (Port.NewLine);
 
-			Thread.Sleep (500); // Fails if this delay is any shorter
+			Thread.Sleep (1000); // Fails if this delay is any shorter
 
+			return Read ();
+		}
+
+		public string Read()
+		{
+			var returnMessage = String.Empty;
 			int count = Port.BytesToRead;
 			int intReturnASCII = 0;
 			while (count > 0) {
 				intReturnASCII = Port.ReadByte ();
 				returnMessage = returnMessage + Convert.ToChar (intReturnASCII);
 				count--;
+				Thread.Sleep (20);
 			}
 
-			return returnMessage;
+			return returnMessage.Trim();
 		}
 
 		public void LogCommand(string arduinoCommand, string arduinoResult)

@@ -7,7 +7,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "duinocom", "duinocom\duinoc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "duinocom.Tests", "duinocom.Tests\duinocom.Tests.csproj", "{4F212B2E-AEFA-47AF-BEBE-FF8212FADA78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "duinocom.duinocomConsole", "duinocom.Console.duinocomConsole\duinocom.duinocomConsole.csproj", "{5C9B18FC-6DD6-486C-8339-0676CB24EB7D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "duinocomConsole", "duinocomConsole\duinocomConsole.csproj", "{5C9B18FC-6DD6-486C-8339-0676CB24EB7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListConsole", "ListConsole\ListConsole.csproj", "{A3C8885B-40B7-4867-A00B-A812B1B95D89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveConsole", "InteractiveConsole\InteractiveConsole.csproj", "{D4725FB9-6D17-4F93-8B96-F72D6400D663}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WWW", "WWW\WWW.csproj", "{7F87C412-77F3-4407-A641-712524498EEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WWW2", "WWW2\WWW2.csproj", "{E42FFA17-1519-479A-B61F-773E66E57FEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +35,25 @@ Global
 		{7DC144D8-E73C-48FD-B650-7F646FF8782F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DC144D8-E73C-48FD-B650-7F646FF8782F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DC144D8-E73C-48FD-B650-7F646FF8782F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F87C412-77F3-4407-A641-712524498EEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F87C412-77F3-4407-A641-712524498EEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F87C412-77F3-4407-A641-712524498EEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F87C412-77F3-4407-A641-712524498EEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3C8885B-40B7-4867-A00B-A812B1B95D89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3C8885B-40B7-4867-A00B-A812B1B95D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3C8885B-40B7-4867-A00B-A812B1B95D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3C8885B-40B7-4867-A00B-A812B1B95D89}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C78A3AAC-44F1-48BC-921A-95F823C871EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C78A3AAC-44F1-48BC-921A-95F823C871EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C78A3AAC-44F1-48BC-921A-95F823C871EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C78A3AAC-44F1-48BC-921A-95F823C871EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4725FB9-6D17-4F93-8B96-F72D6400D663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4725FB9-6D17-4F93-8B96-F72D6400D663}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4725FB9-6D17-4F93-8B96-F72D6400D663}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4725FB9-6D17-4F93-8B96-F72D6400D663}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E42FFA17-1519-479A-B61F-773E66E57FEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E42FFA17-1519-479A-B61F-773E66E57FEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E42FFA17-1519-479A-B61F-773E66E57FEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E42FFA17-1519-479A-B61F-773E66E57FEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

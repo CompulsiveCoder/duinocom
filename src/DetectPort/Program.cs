@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.IO.Ports; //required for SerialPort class
 using System.Threading;
-using Duinocom;
+using duinocom;
 
-namespace SerialPortCommunicationExample
+namespace DetectPort
 {
 	class Program
 	{
