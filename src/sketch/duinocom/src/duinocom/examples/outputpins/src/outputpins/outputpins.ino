@@ -1,5 +1,5 @@
 #include "Arduino.h"
-#include "duinocom.h" 
+#include <duinocom.h>
 
 void setup()
 {
@@ -8,35 +8,30 @@ void setup()
     ; // wait for serial port to connect. Needed for Leonardo only
   }
   
-  Serial.println("Starting demo");
-  duinocomSetup();
+  Serial.println("Starting duinocom demo");
+  Serial.println("Send 'H[pin]' or 'H13' to set a pin high.");
+  Serial.println("Send 'L[pin]' or 'L13' to set a pin low.");
 }
 
 void loop()
 {
-  byte cmd[10];
+  byte* cmd = getCmd();
+
+  runCmd(cmd);
   
-  clearCmd(cmd);
-
-  getCmd(cmd);
-
-  // Disabled; used for debugging only
-  //printCmd(cmd);
-
-  runCustomCmd(cmd);
-  
+  delay(100);
 }
 
-void runCustomCmd(byte cmd[10])
+void runCmd(byte cmd[10])
 {
-  if (cmd[0] != '\0')
+  byte letter = cmd[0];
+    Serial.print("'");
+    Serial.print(letter);
+    Serial.print("'");
+    Serial.println();
+  if (letter != '\0')
   {
-    char letter = cmd[0];
-
-    if (letter == '#')   {
-      identify();
-    }
-    else if (letter == 'H')
+    if (letter == 'H')
     {
       Serial.println("HIGH");
       turn(HIGH, cmd);
@@ -55,11 +50,7 @@ void runCustomCmd(byte cmd[10])
 
 void turn(bool value, byte cmd[10])
 {
-  // Get the number of degrees (up to 3 digits)
-  char buffer[2];
-  buffer[0] = cmd[1];
-  buffer[1] = cmd[2];
-  int pin = atoi(buffer);
+  int pin = readInt2(cmd[1], cmd[2]);
   
   Serial.println(pin);
   
