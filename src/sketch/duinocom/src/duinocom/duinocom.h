@@ -1,13 +1,15 @@
 #ifndef duinocom_H_
 #define duinocom_H_
 
-const int MAX_CMD_LENGTH = 10;
+const int MAX_MSG_LENGTH = 10;
 
-byte* getCmd();
+bool checkMsgReady();
 
-void printCmd(byte cmd[MAX_CMD_LENGTH]);
+char* getMsg();
 
-void clearCmd(byte cmd[MAX_CMD_LENGTH]);
+void printMsg(byte msg[MAX_MSG_LENGTH]);
+
+void clearMsg(byte msg[MAX_MSG_LENGTH]);
 
 void identify();
 

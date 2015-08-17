@@ -1,57 +1,85 @@
 #include "Arduino.h"
 #include "duinocom.h"
 
-const char identifyCmd = '#';
+const char identifyMsg = '#';
 
-byte* getCmd()
+bool isMsgReady = false;
+int msgPosition = 0;
+char msg[MAX_MSG_LENGTH];
+int msgLength = 0;
+
+bool checkMsgReady()
 {
-  byte cmd[MAX_CMD_LENGTH];
-  
-  clearCmd(cmd);
-
-  int x = 0;
   while (Serial.available() > 0) {
     byte b = Serial.read();
-    if (b != '\0')
+
+    if (!isMsgReady)
     {
-      cmd[x] = b;
-    
+      if (b == ';')
+      {
+        msg[msgPosition] = '\0';
+        isMsgReady = true;
+        msgLength = msgPosition+1;
+        msgPosition = 0;
+        Serial.println("msg ready");
+      }
+      else if (char(b) == '\n'
+        || char(b) == '\r')
+      {
+        // ignore
+      }
+      else
+      {
+        msg[msgPosition] = b;
+        msgPosition++;
+      
+      }
     }
     else
-    {
-      cmd[x] = b;
-    }
-      x++;
-    delay(100);
+        msg[msgPosition] = '\0';
+    delay(15);
   }
 
-  if (cmd[0] == identifyCmd)
+  if (msg[0] == identifyMsg)
     identify();
 
-  return cmd;
+  return isMsgReady;
 }
 
-void printCmd(byte cmd[MAX_CMD_LENGTH])
+char* getMsg()
 {
-  if (cmd[0] != '\0')
+  // Reset the isMsgReady flag until a new message is received
+  isMsgReady = false;
+
+  char output[MAX_MSG_LENGTH];
+  for (int i = 0; i < MAX_MSG_LENGTH; i++)
+    output[i] = msg[i];
+
+ //clearMsg(msg);
+
+  return output;
+}
+
+void printMsg(byte msg[MAX_MSG_LENGTH])
+{
+  if (msg[0] != '\0')
   {
-    Serial.print("Cmd:");
-    for (int i = 0; i < MAX_CMD_LENGTH; i++)
+    Serial.print("msg:");
+    for (int i = 0; i < MAX_MSG_LENGTH; i++)
     {
-      if (cmd[i] != '\0')
-        Serial.print(char(cmd[i]));
+      if (msg[i] != '\0')
+        Serial.print(char(msg[i]));
     }
     Serial.println();
   }
 }
 
-void clearCmd(byte cmd[MAX_CMD_LENGTH])
+void clearMsg(byte msg[MAX_MSG_LENGTH])
 {
-  //cmd[0] = 0;
-  //for (int i = 1; i < 10; i++)
-  //{
-  //  cmd[i] = '\0';
- // }
+  for (int i = 0; i < 10; i++)
+  {
+    msg[i] = '\0';
+  }
 }
 
 void identify()
@@ -79,31 +107,3 @@ int readInt3(char char1, char char2, char char3)
 
   return number;
 }
-
-
-// Example loop
-/*void duinocomLoop()
-{
-  byte* cmd = getCmd(cmd);
-
-  runCmd(cmd);
-}*/
-
-
-// Example runCmd function
-/*void runCmd(byte cmd[MAX_CMD_LENGTH])
-{
-  if (cmd[0] != '\0')
-  {
-    char letter = cmd[0];
-
-    if (letter == identifyCmd)
-    {
-      identify();
-    }
-    else
-    {
-      Serial.println("Invalid command");
-    }
-  }
-}*/

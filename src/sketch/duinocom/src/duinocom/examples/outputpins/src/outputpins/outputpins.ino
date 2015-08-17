@@ -9,48 +9,48 @@ void setup()
   }
   
   Serial.println("Starting duinocom demo");
-  Serial.println("Send 'H[pin]' or 'H13' to set a pin high.");
-  Serial.println("Send 'L[pin]' or 'L13' to set a pin low.");
+  Serial.println("Send 'H[pin]' (eg. 'H13') to set a pin high.");
+  Serial.println("Send 'L[pin]' (eg. 'L13') to set a pin low.");
 }
 
 void loop()
 {
-  byte* cmd = getCmd();
+  if (checkMsgReady())
+  {
+    char* msg = getMsg();
+    
+    for (int i = 0; i < 3; i++)
+    {
+        Serial.print(msg[i]);
+    }
+    Serial.println();
+    
+    char letter = msg[0];
 
-  runCmd(cmd);
-  
+    if (letter != '\0')
+    {
+      if (letter == byte('H'))
+      {
+        Serial.println("HIGH");
+        turn(HIGH, msg);
+      }
+      else if (letter == 'L')
+      {
+        Serial.println("LOW");
+        turn(LOW, msg);
+      }
+      else
+      {
+        Serial.println("Invalid command");
+      }
+    }
+  }
   delay(100);
 }
 
-void runCmd(byte cmd[10])
+void turn(bool value, char msg[10])
 {
-  byte letter = cmd[0];
-    Serial.print("'");
-    Serial.print(letter);
-    Serial.print("'");
-    Serial.println();
-  if (letter != '\0')
-  {
-    if (letter == 'H')
-    {
-      Serial.println("HIGH");
-      turn(HIGH, cmd);
-    }
-    else if (letter == 'L')
-    {
-      Serial.println("LOW");
-      turn(LOW, cmd);
-    }
-    else
-    {
-      Serial.println("Invalid command");
-    }
-  }
-}
-
-void turn(bool value, byte cmd[10])
-{
-  int pin = readInt2(cmd[1], cmd[2]);
+  int pin = readInt2(msg[1], msg[2]);
   
   Serial.println(pin);
   
