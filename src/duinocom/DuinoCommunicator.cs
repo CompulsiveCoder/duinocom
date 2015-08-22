@@ -70,6 +70,14 @@ namespace duinocom
 			File.AppendAllText (CommandLogPath, Environment.NewLine + Environment.NewLine);
 		}
 
+		public static DuinoCommunicator New(string identifier)
+		{
+			var portDetector = new DuinoPortDetector (identifier);
+			var port = portDetector.Detect ();
+
+			return new DuinoCommunicator (port);
+		}
+
 		#region IDisposable implementation
 
 		public void Dispose ()

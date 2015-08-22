@@ -19,7 +19,6 @@ namespace duinocom
 		{
 			try
 			{
-				SerialPort port;
 				string[] portNames = SerialPort.GetPortNames();
 
 				for (int i = portNames.Length-1; i > 0; i--) // Iterate backwards because the port is often at the end.
