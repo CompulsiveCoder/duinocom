@@ -21,3 +21,12 @@ To set up the C# and ASP.NET source code for development:
   2) Open the following file in monodevelop:
     src/duinocom.sln
 
+To run the sanity test (and ensure the system is working)...
+  1) Connect an arduino via USB
+
+  2) Install 'outputpins' example sketch to the arduino compatible
+
+  3) Run the sanity test script:
+    sh src/sanity-test-cs.sh
+    # or
+    sh src/sanity-test-cs-debug.sh
