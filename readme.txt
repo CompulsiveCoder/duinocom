@@ -1,10 +1,30 @@
+---------------
+Duinocom Readme
+---------------
+Duinocom is a library used for serial communication between an arduino compatible device and a PC.
+
+To send a message via the command line...
+  1) Install necessary packages:
+     sudo apt-get install mono-complete
+
+  2) Move to release bin directory:
+     cd bin/Release
+
+  3) Send message:
+     mono duinocom.exe [message]
+     # Examples:
+     mono duinocom.exe H13
+     # Multiple commands:
+     mono duinocom.exe "H13;L13;"
+    
+
 To edit the arduino library or example sketch...
 
   1) Open and edit .c and .cpp files in:
      /src/sketch/duinocom/src/duinocom
 
   2) Install library to arduino sketchbook libraries folder:
-     sh /src/sketch/duinocom/to-duino-lib.sh
+     sh src/sketch/duinocom/to-duino-lib.sh
 
 To build the C# and ASP.NET source code...
 
