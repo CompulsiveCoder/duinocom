@@ -23,7 +23,7 @@ namespace duinocom
 
 				Thread.Sleep (1500); // Fails if this delay is any shorter
 
-				port.Write ("#");
+				port.Write ("?");
 				port.Write (port.NewLine);
 
 				Thread.Sleep (500); // Fails if this delay is any shorter
