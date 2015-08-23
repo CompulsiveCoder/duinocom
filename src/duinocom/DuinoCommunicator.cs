@@ -16,15 +16,26 @@ namespace duinocom
 			Port = new SerialPort(portName, 9600);
 		}
 
+		public DuinoCommunicator(SerialPort port)
+		{
+			Port = port;
+		}
+
+		public DuinoCommunicator(DuinoPortDetector portDetector)
+		{
+			Port = portDetector.Detect ();
+		}
+
 		public void Open()
 		{
-			//if (Port.IsOpen)
-			//	Port.Close ();
 			Port.Open ();
 		}
 
 		public void Send(string arduinoCommand)
 		{
+			if (!Port.IsOpen)
+				Open ();
+			
 			Thread.Sleep (1500);
 
 			Port.Write (arduinoCommand);
@@ -73,9 +84,8 @@ namespace duinocom
 		public static DuinoCommunicator New(string identifier)
 		{
 			var portDetector = new DuinoPortDetector (identifier);
-			var port = portDetector.Detect ();
 
-			return new DuinoCommunicator (port);
+			return new DuinoCommunicator (portDetector);
 		}
 
 		#region IDisposable implementation

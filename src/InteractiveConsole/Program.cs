@@ -1,5 +1,6 @@
 ﻿using System;
 using duinocom;
+using System.IO.Ports;
 
 namespace duinocom.duinocomInteractiveConsole
 {
@@ -20,13 +21,13 @@ namespace duinocom.duinocomInteractiveConsole
 			return identifier;
 		}
 
-		private static string getPort(string identifier)
+		private static SerialPort getPort(string identifier)
 		{
 			var detector = new DuinoPortDetector (identifier);
 
 			var port = detector.Detect ();
 
-			if (String.IsNullOrEmpty (port))
+			if (port != null)
 				port = portNotFound (identifier);
 
 			return port;
@@ -41,9 +42,9 @@ namespace duinocom.duinocomInteractiveConsole
 			connect (port);
 		}
 
-		private static void connect(string port)
+		private static void connect(SerialPort port)
 		{
-			Console.WriteLine ("duino found on port " + port);
+			Console.WriteLine ("duino found on port " + port.PortName);
 			Console.WriteLine ("Ready...");
 
 			bool isRunning = true;
@@ -74,7 +75,7 @@ namespace duinocom.duinocomInteractiveConsole
 			return command;
 		}
 
-		private static string portNotFound(string identifier)
+		private static SerialPort portNotFound(string identifier)
 		{
 			Console.WriteLine ("No duino was detected.");
 			Console.WriteLine ("Please ensure it is plugged in.");

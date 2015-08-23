@@ -15,7 +15,7 @@ namespace duinocom
 			Identifier = identifier;
 		}
 
-		public string Detect()
+		public SerialPort Detect()
 		{
 			try
 			{
@@ -24,9 +24,12 @@ namespace duinocom
 				for (int i = portNames.Length-1; i > 0; i--) // Iterate backwards because the port is often at the end.
 				{
 					var portName = portNames[i];
-					if (IsIdentified(portName))
+
+					var port = new SerialPort(portName, 9600);
+
+					if (IsIdentified(port))
 					{
-						return portName;
+						return port;
 					}
 				}
 			}
@@ -34,14 +37,23 @@ namespace duinocom
 			{
 			}
 
+			return null;
+		}
+
+		public string DetectName()
+		{
+			var port = Detect ();
+			if (port != null)
+				return port.PortName;
+
 			return String.Empty;
 		}
 
 
 
-		public bool IsIdentified(string portName)
+		public bool IsIdentified(SerialPort port)
 		{
-			var broadcastIdentifier = new DuinoIdentifier ().Identify(portName);
+			var broadcastIdentifier = new DuinoIdentifier ().Identify(port);
 
 			if (broadcastIdentifier.Contains (Identifier)) {
 				return true;

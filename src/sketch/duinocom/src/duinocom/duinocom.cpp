@@ -1,7 +1,7 @@
 #include "Arduino.h"
 #include "duinocom.h"
 
-const byte identifyRequest = '?';
+const char identifyRequest = 'I';
 const char* identifyResponse = "duinocom";
 
 bool verboseCom = true;
@@ -21,69 +21,75 @@ bool checkMsgReady()
     }
     byte b = Serial.read();
 
-    //if (!isMsgReady)
-    //{
-      // The end of a message
-      if ((b == ';'
-        || b == '\n'
-        || b == '\r')
-        && msgPosition > 0
-        )
+    // The end of a message
+    if ((b == ';'
+      || b == '\n'
+      || b == '\r')
+      && msgPosition > 0
+      )
+    {
+      if (verboseCom)
       {
-        if (verboseCom)
-        {
-          Serial.print("In:");
-          if (b == '\n'
-            || b == '\r')
-            Serial.println("[newline]");
-          else
-            Serial.println(char(b));
-        }
-
-        msgBuffer[msgPosition] = '\0';
-        isMsgReady = true;
-        msgPosition = 0;
-
-        if (verboseCom)
-        {
-          Serial.println("Message ready");
-
-          Serial.print("Length:");
-          Serial.println(msgLength);
-        }
+        Serial.print("In:");
+        if (b == '\n'
+          || b == '\r')
+          Serial.println("[newline]");
+        else
+          Serial.println(char(b));
       }
-      else if (byte(b) == '\n' // New line
-        || byte(b) == '\r') // Carriage return
+
+      msgBuffer[msgPosition] = '\0';
+      isMsgReady = true;
+      msgPosition = 0;
+
+      if (verboseCom)
       {
-        //isMsgReady = false;
-        //msgPosition = 0;
-        if (verboseCom)
-          Serial.println("newline");
+        Serial.println("Message ready");
+
+        Serial.print("Length:");
+        Serial.println(msgLength);
       }
-      else
+    }
+    else if (byte(b) == '\n' // New line
+      || byte(b) == '\r') // Carriage return
+    {
+      if (verboseCom)
+        Serial.println("[newline]");
+    }
+    else // Message bytes
+    {
+      if (msgPosition == 0)
+        clearMsg(msgBuffer);
+
+      msgBuffer[msgPosition] = b;
+      msgLength = msgPosition+1;
+      msgPosition++;
+      isMsgReady = false;
+
+      if (verboseCom)
       {
-        if (msgPosition == 0)
-          clearMsg(msgBuffer);
-        msgBuffer[msgPosition] = b;
-        msgLength = msgPosition+1;
-        msgPosition++;
+        Serial.print("In:");
+        Serial.println(char(b));
+      }
+    }
+
+    // If an id request is received then respond
+    if (isMsgReady)
+    {
+      char firstCharacter = char(msgBuffer[0]);
+      Serial.println(char(firstCharacter));
+
+      if (firstCharacter == identifyRequest)
+      {
+        identify();
+
         isMsgReady = false;
 
-        if (verboseCom)
-        {
-          Serial.print("In:");
-          Serial.println(char(b));
-        }
+        clearMsg(msgBuffer);
       }
-    //}
+    }
+
     delay(15);
-  }
-
-  if (msgBuffer[0] == identifyRequest)
-  {
-    identify();
-
-    clearMsg(msgBuffer);
   }
 
   return isMsgReady;
@@ -95,17 +101,8 @@ byte* getMsg()
   // Reset the isMsgReady flag until a new message is received
   isMsgReady = false;
 
-  byte output[MAX_MSG_LENGTH];
-  for (int i = 0; i < MAX_MSG_LENGTH; i++)
-  {
-    byte c = msgBuffer[i];
-    output[i] = c;
-  }
-
   if (verboseCom)
-   printMsg(output);
-
- // clearMsg(msgBuffer);
+   printMsg(msgBuffer);
 
   return msgBuffer;
 }

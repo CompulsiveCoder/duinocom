@@ -16,7 +16,6 @@ namespace duinocom
 
 			try
 			{
-				SerialPort port;
 				string[] portNames = SerialPort.GetPortNames();
 
 				var identifier = new DuinoIdentifier();
@@ -24,7 +23,8 @@ namespace duinocom
 				for (int i = portNames.Length-1; i > 0; i--) // Iterate backwards because the port is often at the end.
 				{
 					var portName = portNames[i];
-					var id = identifier.Identify(portName);
+					var port = new SerialPort(portName, 9600); // TODO: Move the baud rate to a property
+					var id = identifier.Identify(port);
 					if (!String.IsNullOrEmpty(id))
 					{
 						list.Add(id);
@@ -45,7 +45,6 @@ namespace duinocom
 
 			try
 			{
-				SerialPort port;
 				string[] portNames = SerialPort.GetPortNames();
 
 				var identifier = new DuinoIdentifier();
@@ -53,7 +52,8 @@ namespace duinocom
 				for (int i = portNames.Length-1; i > 0; i--) // Iterate backwards because the port is often at the end.
 				{
 					var portName = portNames[i];
-					var id = identifier.Identify(portName);
+					var port = new SerialPort(portName, 9600); // TODO: Move the baud rate to a property
+					var id = identifier.Identify(port);
 					if (!String.IsNullOrEmpty(id))
 					{
 						dict.Add(portName, id);

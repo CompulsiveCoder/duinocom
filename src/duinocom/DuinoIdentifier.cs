@@ -6,14 +6,14 @@ namespace duinocom
 {
 	public class DuinoIdentifier
 	{
+		static public string IdentifyRequest = "I";
+
 		public DuinoIdentifier ()
 		{
 		}
 
-		public string Identify(string portName)
+		public string Identify(SerialPort port)
 		{
-			var port = new SerialPort(portName, 9600);
-
 			string returnMessage = "";
 			try {
 				if (port.IsOpen)
@@ -21,12 +21,12 @@ namespace duinocom
 
 				port.Open ();
 
-				Thread.Sleep (1500); // Fails if this delay is any shorter
+				Thread.Sleep (1500); // Fails sometimes if this delay is any shorter
 
-				port.Write ("?");
+				port.Write (IdentifyRequest);
 				port.Write (port.NewLine);
 
-				Thread.Sleep (500); // Fails if this delay is any shorter
+				Thread.Sleep (500); // Fails sometimes if this delay is any shorter
 
 				int count = port.BytesToRead;
 				int intReturnASCII = 0;
