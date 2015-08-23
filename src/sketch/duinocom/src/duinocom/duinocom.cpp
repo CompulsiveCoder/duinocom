@@ -134,22 +134,19 @@ void identify()
   Serial.println(identifyResponse);
 }
 
-int readInt2(char byte1, char byte2)
+char getCmdChar(byte msg[MAX_MSG_LENGTH], int position)
 {
-  char buffer[2];
-  buffer[0] = byte1;
-  buffer[1] = byte2;
-  int number = atoi(buffer);
-
-  return number;
+  return msg[position];
 }
 
-int readInt3(char byte1, char byte2, char byte3)
+int readInt(byte msg[MAX_MSG_LENGTH], int startPosition, int digitCount)
 {
-  char buffer[3];
-  buffer[0] = byte1;
-  buffer[1] = byte2;
-  buffer[2] = byte3;
+  char buffer[count];
+  for (int i = 0; i < digitCount; i++)
+  {
+    buffer[i] = msg[startPosition+i];
+  }
+
   int number = atoi(buffer);
 
   return number;

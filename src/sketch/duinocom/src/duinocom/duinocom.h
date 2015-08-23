@@ -13,8 +13,8 @@ void clearMsg(byte msg[MAX_MSG_LENGTH]);
 
 void identify();
 
-int readInt2(char byte1, char byte2);
+char getCmdChar(byte msg[MAX_MSG_LENGTH]);
 
-int readInt3(char byte1, char byte2, char byte3);
+int readInt(byte msg[MAX_MSG_LENGTH], int startPosition, int digitCount);
 
 #endif
