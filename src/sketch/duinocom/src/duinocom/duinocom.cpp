@@ -11,6 +11,11 @@ int msgPosition = 0;
 byte msgBuffer[MAX_MSG_LENGTH];
 int msgLength = 0;
 
+void identify()
+{
+  Serial.println(identifyResponse);
+}
+
 // Check whether a message is available and add it to the 'msgBuffer' buffer
 bool checkMsgReady()
 {
@@ -107,6 +112,11 @@ byte* getMsg()
   return msgBuffer;
 }
 
+int getMsgLength()
+{
+  return msgLength;
+}
+
 void printMsg(byte msg[MAX_MSG_LENGTH])
 {
   if (msgLength > 0)
@@ -129,22 +139,24 @@ void clearMsg(byte msgBuffer[MAX_MSG_LENGTH])
   }
 }
 
-void identify()
+char getCmdChar(byte msg[MAX_MSG_LENGTH], int characterPosition)
 {
-  Serial.println(identifyResponse);
-}
-
-char getCmdChar(byte msg[MAX_MSG_LENGTH], int position)
-{
-  return msg[position];
+  return msg[characterPosition];
 }
 
 int readInt(byte msg[MAX_MSG_LENGTH], int startPosition, int digitCount)
 {
-  char buffer[count];
+  char buffer[digitCount];
+
+  if (verboseCom)
+    Serial.println("Reading int");
+
   for (int i = 0; i < digitCount; i++)
   {
     buffer[i] = msg[startPosition+i];
+
+    if (verboseCom)
+      Serial.println(buffer[i]);
   }
 
   int number = atoi(buffer);
