@@ -13,7 +13,11 @@ namespace duinocom
 		public DuinoPortDetector (string identifier)
 		{
 			Identifier = identifier;
-		}
+    }
+
+    public DuinoPortDetector ()
+    {
+    }
 
 		public SerialPort Detect()
 		{
@@ -37,7 +41,7 @@ namespace duinocom
 			{
 			}
 
-			return null;
+      return Guess ();
 		}
 
 

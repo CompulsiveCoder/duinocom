@@ -44,17 +44,26 @@ namespace duinocom
 
 		public string SendAndRead(string arduinoCommand)
 		{
-			if (!Port.IsOpen)
-				Open ();
-			
-			Thread.Sleep (1500); // Fails if this delay is any shorter
+      try
+      {
+  			if (!Port.IsOpen)
+  				Open ();
+  			
+  			Thread.Sleep (1500); // Fails if this delay is any shorter
 
-			Port.Write (arduinoCommand);
-			Port.Write (Port.NewLine);
+  			Port.Write (arduinoCommand);
+  			Port.Write (Port.NewLine);
 
-			Thread.Sleep (1000); // Fails if this delay is any shorter
+  			Thread.Sleep (1000); // Fails if this delay is any shorter
 
-			return Read ();
+  			return Read ();
+      }
+      catch(Exception ex) {
+        throw ex;
+      }
+      finally {
+        Close ();
+      }
 		}
 
 		public string Read()
@@ -81,6 +90,12 @@ namespace duinocom
 			File.AppendAllText (CommandLogPath, Environment.NewLine + Environment.NewLine);
 		}
 
+    public void Close()
+    {
+      if (Port.IsOpen)
+        Port.Close ();
+    }
+
 		public static DuinoCommunicator New(string identifier)
 		{
 			var portDetector = new DuinoPortDetector (identifier);
@@ -92,7 +107,7 @@ namespace duinocom
 
 		public void Dispose ()
 		{
-			Port.Close ();
+      Close ();
 		}
 
 		#endregion
