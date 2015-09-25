@@ -50,4 +50,7 @@ Global
 		{E42FFA17-1519-479A-B61F-773E66E57FEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E42FFA17-1519-479A-B61F-773E66E57FEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = duinocomConsole\duinocomConsole.csproj
+	EndGlobalSection
 EndGlobal

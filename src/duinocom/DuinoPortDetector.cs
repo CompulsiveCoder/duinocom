@@ -40,6 +40,34 @@ namespace duinocom
 			return null;
 		}
 
+
+    public SerialPort Guess()
+    {
+      try
+      {
+        string[] portNames = SerialPort.GetPortNames();
+
+        for (int i = portNames.Length-1; i > 0; i--) // Iterate backwards because the port is often at the end.
+        {
+          var portName = portNames[i];
+
+          var port = new SerialPort(portName, 9600);
+
+          port.Open();
+
+          if (port.IsOpen)
+          {
+            return port;
+          }
+        }
+      }
+      catch (Exception)
+      {
+      }
+
+      return null;
+    }
+
 		public string DetectName()
 		{
 			var port = Detect ();

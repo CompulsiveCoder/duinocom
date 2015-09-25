@@ -12,7 +12,9 @@ namespace duinocom.duinocomConsole
 
 			var detector = new duinocom.DuinoPortDetector ("duinocom");
 
-			var port = detector.Detect ();
+      var port = detector.Detect ();
+      if(port == null)
+        port = detector.Guess ();
 
 			using (var communicator = new duinocom.DuinoCommunicator (port)) {
 				Console.WriteLine("");
