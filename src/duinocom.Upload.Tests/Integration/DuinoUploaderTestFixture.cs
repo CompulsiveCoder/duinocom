@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using System.IO;
 
-namespace duinocom.Upload.Tests
+namespace duinocom.Upload.Tests.Integration
 {
   [TestFixture]
   public class DuinoUploaderTestFixture
@@ -26,7 +26,7 @@ void loop() {
     {
       var uploader = new DuinoUploader ();
 
-      var result = uploader.UploadSketch (Environment.CurrentDirectory, "", "nano328", blinkSketchCode);
+      uploader.UploadCode (blinkSketchCode, "", "nano328");
 
       if (uploader.Error.Length > 0) {
         Console.WriteLine ("Error:");

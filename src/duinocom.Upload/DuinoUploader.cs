@@ -7,6 +7,7 @@ namespace duinocom.Upload
   public class DuinoUploader
   {
     public string Error = "";
+    public bool IsError { get { return Error.Length > 0; } }
 
     public DuinoUploader ()
     {
@@ -14,10 +15,11 @@ namespace duinocom.Upload
 
     public void InstallOnUbuntu()
     {
+      // TODO: Move to configuration file
       ExecuteCommand ("apt-get mono-runtime");
     }
 
-    public string UploadSketch(string directory, string port, string board, string code)
+    public string UploadCode(string code, string port, string board)
     {
       var tmpDir = Path.GetFullPath ("_tmp");
 
@@ -27,43 +29,84 @@ namespace duinocom.Upload
 
       var srcDir = Path.Combine (sketchDir, "src");
 
-      Directory.CreateDirectory (srcDir);
+      var sketchPath = Path.Combine (srcDir, "sketch.ino");
 
       Directory.CreateDirectory (tmpDir);
       Directory.CreateDirectory (uniqueDir);
       Directory.CreateDirectory (sketchDir);
+      Directory.CreateDirectory (srcDir);
 
       Directory.SetCurrentDirectory (sketchDir);
 
-      return UploadSketchFile (directory, port, board, sketchDir);
+      var output = "";
+
+      output += ExecuteInit();
+
+      File.WriteAllText(sketchPath, code);
+
+      if (!IsError)
+        output += ExecuteBuild(board);
+
+      // TODO: Enable port parameter
+      if (!IsError)
+        output += ExecuteUpload (board, port);
+
+      CheckOutput (output);
+
+      //Directory.Delete (uniqueDir, true);
+
+      return output;
     }
 
 
-      public string UploadSketchFile(string directory, string port, string board, string sketchDirectoryPath)
-      {
-        var sketchPath = Path.Combine (sketchDirectoryPath, "sketch.ino");
+    public string UploadSketch(string sketchDirectoryPath, string port, string board)
+    {
 
-        var output = "";
+      var srcDir = Path.Combine (sketchDirectoryPath, "src");
+      Directory.CreateDirectory (srcDir);
 
-        ExecuteCommand("ino init");
+      var output = "";
+
+      output += ExecuteInit();
+      if (!IsError)
+        output += ExecuteBuild(board);
+
+      // TODO: Enable port parameter
+      if (!IsError)
+        output += ExecuteUpload (port, board);
     
-        File.WriteAllText (sketchPath, sketchDirectoryPath);
+      CheckOutput(output);
 
-        output += ExecuteCommand("ino clean");
+      return output;
+    }
 
-        output += ExecuteCommand("ino build -m " + board);
+    public void CheckOutput(string output)
+    {
+      if (output.IndexOf("No device matching following was found") > -1)
+      {
+        Error = "No duino compatible device deteceted. Is it plugged in?";
+      }
 
-        // TODO: Enable port parameter
-        output += ExecuteCommand("ino upload -m " + board);// + " -p " + port;
-      
-        Console.WriteLine("Finished");
+      if (!IsError) {
+        Console.WriteLine ("Finished");
+      } else {
+        Console.WriteLine("Error");
+      }
+    }
 
-        if (output.IndexOf("No device matching following was found") > -1)
-        {
-          Error = "No duino compatible device deteceted. Is it plugged in?";
-        }
+    public string ExecuteInit()
+    {
+      return ExecuteCommand("ino init");
+    }
 
-        return output;
+    public string ExecuteBuild(string board)
+    {
+      return ExecuteCommand ("ino build -m " + board);
+    }
+
+    public string ExecuteUpload(string board, string port)
+    {
+      return ExecuteCommand ("ino upload -m " + board);// + " -b " + baudRate);// + " -p " + port;
     }
 
     public string ExecuteCommand(string command)
@@ -77,11 +120,16 @@ namespace duinocom.Upload
         var startInfo = new ProcessStartInfo(firstPart, secondPart);
         startInfo.UseShellExecute = false;
         startInfo.RedirectStandardOutput = true;
+        startInfo.RedirectStandardError = true;
         var process = Process.Start(startInfo);
-        string output = process.StandardOutput.ReadToEnd();
         process.WaitForExit();
+        string output = process.StandardOutput.ReadToEnd();
+        string error = process.StandardError.ReadToEnd();
         Console.WriteLine(output);
-        return output + Environment.NewLine;
+        Console.WriteLine(error);
+        output += error;
+        output += Environment.NewLine;
+        return output;
       }
       catch(Exception ex)
       {
