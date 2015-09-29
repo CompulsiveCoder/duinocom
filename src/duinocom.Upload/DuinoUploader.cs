@@ -49,6 +49,8 @@ namespace duinocom.Upload
     
         File.WriteAllText (sketchPath, sketchDirectoryPath);
 
+        output += ExecuteCommand("ino clean");
+
         output += ExecuteCommand("ino build -m " + board);
 
         // TODO: Enable port parameter

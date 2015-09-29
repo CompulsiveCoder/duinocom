@@ -25,13 +25,6 @@ void loop() {
     public void Test_Upload()
     {
       var uploader = new DuinoUploader ();
-     
-      /*var newDirectory = Path.Combine (Environment.CurrentDirectory, "_tmp");
-      Directory.CreateDirectory (newDirectory);
-      newDirectory = Path.Combine (newDirectory, Guid.NewGuid ().ToString ());
-      Directory.CreateDirectory (newDirectory);*/
-
-
 
       var result = uploader.UploadSketch (Environment.CurrentDirectory, "", "nano328", blinkSketchCode);
 
