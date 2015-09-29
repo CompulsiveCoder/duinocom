@@ -21,22 +21,13 @@ namespace duinocom.Upload
 
     public string UploadCode(string code, string port, string board)
     {
-      var tmpDir = Path.GetFullPath ("_tmp");
+      var sketchDir = GetTmpSketchDir ();
 
-      var uniqueDir = Path.Combine (tmpDir, Guid.NewGuid ().ToString ());
-
-      var sketchDir = Path.Combine (uniqueDir, "sketch");
+      Directory.SetCurrentDirectory (sketchDir);
 
       var srcDir = Path.Combine (sketchDir, "src");
 
       var sketchPath = Path.Combine (srcDir, "sketch.ino");
-
-      Directory.CreateDirectory (tmpDir);
-      Directory.CreateDirectory (uniqueDir);
-      Directory.CreateDirectory (sketchDir);
-      Directory.CreateDirectory (srcDir);
-
-      Directory.SetCurrentDirectory (sketchDir);
 
       var output = "";
 
@@ -59,7 +50,70 @@ namespace duinocom.Upload
     }
 
 
-    public string UploadSketch(string sketchDirectoryPath, string port, string board)
+    public string UploadSketch(string sketchFilePath, string port, string board)
+    {
+
+      var output = "";
+
+      Console.WriteLine ("Sketch path: " + sketchFilePath);
+
+      var sketchDirectoryPath = Path.GetDirectoryName (sketchFilePath);
+
+      var tmpSketchDir = GetTmpSketchDir();
+
+      Directory.SetCurrentDirectory (tmpSketchDir);
+
+      Console.WriteLine ("Temporary sketch path: " + tmpSketchDir);
+
+      var tmpSrcDir = Path.Combine (tmpSketchDir, "src");
+
+      output += ExecuteInit();
+
+      // Empty the directory
+      Directory.Delete (tmpSrcDir, true);
+      Directory.CreateDirectory (tmpSrcDir);
+
+      Console.WriteLine ("Copying files");
+      DirectoryCopy (sketchDirectoryPath, tmpSrcDir, true);
+
+
+      //if (output.IndexOf ("No project found in this directory.") == -1) {
+        if (!IsError)
+          output += ExecuteBuild (board);
+
+        // TODO: Enable port parameter
+        if (!IsError)
+          output += ExecuteUpload (board, port);
+
+        CheckOutput (output);
+      //} else {
+      //  Error = "No project found in this directory.";
+      //}
+
+      return output;
+    }
+
+    public string GetTmpSketchDir()
+    {
+      var tmpDir = Path.GetFullPath ("_tmp");
+
+      var uniqueDir = Path.Combine (tmpDir, Guid.NewGuid ().ToString ());
+
+      var sketchDir = Path.Combine (uniqueDir, "SketchUpload");
+
+      //var srcDir = Path.Combine (sketchDir, "src");
+
+      Directory.CreateDirectory (tmpDir);
+      Directory.CreateDirectory (uniqueDir);
+      Directory.CreateDirectory (sketchDir);
+      //Directory.CreateDirectory (srcDir);
+
+      //Directory.SetCurrentDirectory (sketchDir);
+
+      return sketchDir;
+    }
+
+    /*public string UploadSketch(string sketchDirectoryPath, string port, string board)
     {
 
       var srcDir = Path.Combine (sketchDirectoryPath, "src");
@@ -76,12 +130,14 @@ namespace duinocom.Upload
         // TODO: Enable port parameter
         if (!IsError)
           output += ExecuteUpload (port, board);
-    
+
         CheckOutput (output);
+      } else {
+        Error = "No project found in this directory.";
       }
 
       return output;
-    }
+    }*/
 
     public void CheckOutput(string output)
     {
@@ -109,7 +165,8 @@ namespace duinocom.Upload
 
     public string ExecuteUpload(string board, string port)
     {
-      return ExecuteCommand ("ino upload -m " + board);// + " -b " + baudRate);// + " -p " + port;
+      // TODO: Enable port
+      return ExecuteCommand ("ino upload -m " + board);// + " -p " + port;
     }
 
     public string ExecuteCommand(string command)
@@ -118,7 +175,7 @@ namespace duinocom.Upload
       {
         var spacePos = command.IndexOf (" ");
         var firstPart = command.Substring (0, spacePos);
-        var secondPart = command.Substring (spacePos+1, command.Length - spacePos-1);
+        var secondPart = command.Substring (spacePos+1, command.Length - spacePos-1).Trim();
 
         var startInfo = new ProcessStartInfo(firstPart, secondPart);
         startInfo.UseShellExecute = false;
@@ -142,6 +199,43 @@ namespace duinocom.Upload
         return output + Environment.NewLine;
       }
     }
+
+    private void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
+    {
+      // Get the subdirectories for the specified directory.
+      DirectoryInfo dir = new DirectoryInfo(sourceDirName);
+
+      if (!dir.Exists)
+      {
+        throw new DirectoryNotFoundException(
+          "Source directory does not exist or could not be found: "
+          + sourceDirName);
+      }
+
+      DirectoryInfo[] dirs = dir.GetDirectories();
+      // If the destination directory doesn't exist, create it.
+      if (!Directory.Exists(destDirName))
+      {
+        Directory.CreateDirectory(destDirName);
+      }
+
+      // Get the files in the directory and copy them to the new location.
+      FileInfo[] files = dir.GetFiles();
+      foreach (FileInfo file in files)
+      {
+        string temppath = Path.Combine(destDirName, file.Name);
+        file.CopyTo(temppath, false);
+      }
+
+      // If copying subdirectories, copy them and their contents to new location.
+      if (copySubDirs)
+      {
+        foreach (DirectoryInfo subdir in dirs)
+        {
+          string temppath = Path.Combine(destDirName, subdir.Name);
+          DirectoryCopy(subdir.FullName, temppath, copySubDirs);
+        }
+      }
+    }
   }
 }
-

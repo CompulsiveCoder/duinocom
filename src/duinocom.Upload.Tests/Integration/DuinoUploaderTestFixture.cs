@@ -22,7 +22,7 @@ void loop() {
 }";
 
     [Test]
-    public void Test_Upload()
+    public void Test_UploadCode()
     {
       var uploader = new DuinoUploader ();
 
@@ -36,6 +36,34 @@ void loop() {
       Assert.AreEqual (0, uploader.Error.Length, "Error: " + uploader.Error);
 
       Console.WriteLine ("Check your arduino. Is it blinking? It should be.");
+    }
+
+    [Test]
+    public void Test_UploadSketch()
+    {
+      var uploader = new DuinoUploader ();
+
+      var tmpDir = Path.Combine (Path.GetFullPath("_tmp"), Guid.NewGuid ().ToString());
+      Directory.CreateDirectory (tmpDir);
+      tmpDir = Path.Combine(tmpDir, "TestSketch");
+      Directory.CreateDirectory (tmpDir);
+
+      var tmpFile = Path.Combine (tmpDir, "Sketch.ino");
+
+      File.WriteAllText (tmpFile, blinkSketchCode);
+
+      uploader.UploadSketch (tmpFile, "", "nano328");
+
+      if (uploader.Error.Length > 0) {
+        Console.WriteLine ("Error:");
+        Console.WriteLine (uploader.Error);
+      }
+
+      Assert.AreEqual (0, uploader.Error.Length, "Error: " + uploader.Error);
+
+      Console.WriteLine ("Check your arduino. Is it blinking? It should be.");
+
+      Directory.Delete (tmpDir, true);
     }
   }
 }
