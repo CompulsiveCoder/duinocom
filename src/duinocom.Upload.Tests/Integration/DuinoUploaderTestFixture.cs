@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using System.IO;
 
-namespace duinocom.Upload.Tests
+namespace duinocom.Upload.Tests.Integration
 {
   [TestFixture]
   public class DuinoUploaderTestFixture
@@ -25,15 +25,8 @@ void loop() {
     public void Test_Upload()
     {
       var uploader = new DuinoUploader ();
-     
-      /*var newDirectory = Path.Combine (Environment.CurrentDirectory, "_tmp");
-      Directory.CreateDirectory (newDirectory);
-      newDirectory = Path.Combine (newDirectory, Guid.NewGuid ().ToString ());
-      Directory.CreateDirectory (newDirectory);*/
 
-
-
-      var result = uploader.UploadSketch (Environment.CurrentDirectory, "", "nano328", blinkSketchCode);
+      uploader.UploadCode (blinkSketchCode, "", "nano328");
 
       if (uploader.Error.Length > 0) {
         Console.WriteLine ("Error:");
