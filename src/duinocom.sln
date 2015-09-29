@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveConsole", "Inter
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WWW", "WWW\WWW.csproj", "{E42FFA17-1519-479A-B61F-773E66E57FEA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "duinocom.Upload", "duinocom.Upload\duinocom.Upload.csproj", "{DE3A77AB-0EE3-4E53-B0D9-4EC6CEB13763}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "duinocom.Upload.Tests", "duinocom.Upload.Tests\duinocom.Upload.Tests.csproj", "{70B4EE6F-F223-45AF-9F1B-2B3FC4F8103A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +33,10 @@ Global
 		{5C9B18FC-6DD6-486C-8339-0676CB24EB7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C9B18FC-6DD6-486C-8339-0676CB24EB7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C9B18FC-6DD6-486C-8339-0676CB24EB7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70B4EE6F-F223-45AF-9F1B-2B3FC4F8103A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70B4EE6F-F223-45AF-9F1B-2B3FC4F8103A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70B4EE6F-F223-45AF-9F1B-2B3FC4F8103A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70B4EE6F-F223-45AF-9F1B-2B3FC4F8103A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7DC144D8-E73C-48FD-B650-7F646FF8782F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7DC144D8-E73C-48FD-B650-7F646FF8782F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DC144D8-E73C-48FD-B650-7F646FF8782F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +53,10 @@ Global
 		{D4725FB9-6D17-4F93-8B96-F72D6400D663}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4725FB9-6D17-4F93-8B96-F72D6400D663}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4725FB9-6D17-4F93-8B96-F72D6400D663}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE3A77AB-0EE3-4E53-B0D9-4EC6CEB13763}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE3A77AB-0EE3-4E53-B0D9-4EC6CEB13763}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE3A77AB-0EE3-4E53-B0D9-4EC6CEB13763}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE3A77AB-0EE3-4E53-B0D9-4EC6CEB13763}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E42FFA17-1519-479A-B61F-773E66E57FEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E42FFA17-1519-479A-B61F-773E66E57FEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E42FFA17-1519-479A-B61F-773E66E57FEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
