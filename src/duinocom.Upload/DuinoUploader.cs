@@ -68,14 +68,17 @@ namespace duinocom.Upload
       var output = "";
 
       output += ExecuteInit();
-      if (!IsError)
-        output += ExecuteBuild(board);
 
-      // TODO: Enable port parameter
-      if (!IsError)
-        output += ExecuteUpload (port, board);
+      if (output.IndexOf ("No project found in this directory.") == -1) {
+        if (!IsError)
+          output += ExecuteBuild (board);
+
+        // TODO: Enable port parameter
+        if (!IsError)
+          output += ExecuteUpload (port, board);
     
-      CheckOutput(output);
+        CheckOutput (output);
+      }
 
       return output;
     }
