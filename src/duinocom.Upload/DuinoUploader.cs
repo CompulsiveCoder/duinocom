@@ -50,7 +50,7 @@ namespace duinocom.Upload
     }
 
 
-    public string UploadSketch(string sketchFilePath, string port, string board)
+    public string UploadFromFile(string sketchFilePath, string port, string board)
     {
 
       var output = "";

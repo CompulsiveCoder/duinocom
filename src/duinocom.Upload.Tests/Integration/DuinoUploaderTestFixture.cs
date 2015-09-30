@@ -39,7 +39,7 @@ void loop() {
     }
 
     [Test]
-    public void Test_UploadSketch()
+    public void Test_UploadFromFile()
     {
       var uploader = new DuinoUploader ();
 
@@ -52,7 +52,7 @@ void loop() {
 
       File.WriteAllText (tmpFile, blinkSketchCode);
 
-      uploader.UploadSketch (tmpFile, "", "nano328");
+      uploader.UploadFromFile (tmpFile, "", "nano328");
 
       if (uploader.Error.Length > 0) {
         Console.WriteLine ("Error:");
