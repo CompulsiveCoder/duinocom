@@ -21,6 +21,8 @@ namespace duinocom.Upload
 
     public string UploadCode(string code, string port, string board)
     {
+      var originalDir = Environment.CurrentDirectory;
+
       var sketchDir = GetTmpSketchDir ();
 
       Directory.SetCurrentDirectory (sketchDir);
@@ -46,12 +48,17 @@ namespace duinocom.Upload
 
       //Directory.Delete (uniqueDir, true);
 
+      Directory.SetCurrentDirectory (originalDir);
+
       return output;
     }
 
 
     public string UploadFromFile(string sketchFilePath, string port, string board)
     {
+      var originalDir = Environment.CurrentDirectory;
+
+      Console.WriteLine ("Attempting to upload a duino sketch...");
 
       var output = "";
 
@@ -90,6 +97,9 @@ namespace duinocom.Upload
       //  Error = "No project found in this directory.";
       //}
 
+
+      Directory.SetCurrentDirectory (originalDir);
+
       return output;
     }
 
@@ -97,7 +107,9 @@ namespace duinocom.Upload
     {
       var tmpDir = Path.GetFullPath ("_tmp");
 
-      var uniqueDir = Path.Combine (tmpDir, Guid.NewGuid ().ToString ());
+      var guidString = Guid.NewGuid ().ToString ();
+
+      var uniqueDir = Path.Combine (tmpDir, guidString.Substring(0, guidString.IndexOf("-")));
 
       var sketchDir = Path.Combine (uniqueDir, "SketchUpload");
 
@@ -202,6 +214,10 @@ namespace duinocom.Upload
 
     private void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
     {
+      Console.WriteLine ("Source dir: " + sourceDirName);
+      Console.WriteLine ("Dest dir: " + destDirName);
+      Console.WriteLine ("Sub dirs? " + copySubDirs.ToString ());
+
       // Get the subdirectories for the specified directory.
       DirectoryInfo dir = new DirectoryInfo(sourceDirName);
 
@@ -216,15 +232,29 @@ namespace duinocom.Upload
       // If the destination directory doesn't exist, create it.
       if (!Directory.Exists(destDirName))
       {
-        Directory.CreateDirectory(destDirName);
+        try
+        {
+          Directory.CreateDirectory(destDirName);
+
+        }
+        catch (Exception ex) {
+          Console.WriteLine (ex.ToString ());
+        }
       }
 
       // Get the files in the directory and copy them to the new location.
       FileInfo[] files = dir.GetFiles();
       foreach (FileInfo file in files)
       {
+        Console.WriteLine (file);
         string temppath = Path.Combine(destDirName, file.Name);
-        file.CopyTo(temppath, false);
+        try
+        {
+          file.CopyTo(temppath, false);
+        }
+        catch (Exception ex) {
+          Console.WriteLine (ex.ToString ());
+        }
       }
 
       // If copying subdirectories, copy them and their contents to new location.
@@ -232,8 +262,12 @@ namespace duinocom.Upload
       {
         foreach (DirectoryInfo subdir in dirs)
         {
-          string temppath = Path.Combine(destDirName, subdir.Name);
-          DirectoryCopy(subdir.FullName, temppath, copySubDirs);
+          // Ignore some files
+          if (!subdir.Name.StartsWith (".")) {
+            Console.WriteLine (subdir);
+            string temppath = Path.Combine (destDirName, subdir.Name);
+            DirectoryCopy (subdir.FullName, temppath, copySubDirs);
+          }
         }
       }
     }
