@@ -7,7 +7,6 @@
     <OutputType>Library</OutputType>
     <RootNamespace>duinocom</RootNamespace>
     <AssemblyName>duinocom</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>duinocom.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
