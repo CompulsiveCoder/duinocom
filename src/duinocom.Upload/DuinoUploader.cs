@@ -172,7 +172,13 @@ namespace duinocom.Upload
 
     public string ExecuteBuild(string board)
     {
-      return ExecuteCommand ("ino build -m " + board);
+      var output = ExecuteCommand ("ino build -m " + board);
+
+      if (output.IndexOf ("Make failed") > -1) {
+        Error += "An error occurred when trying to build the sketch.";
+      }
+
+      return output;
     }
 
     public string ExecuteUpload(string board, string port)
