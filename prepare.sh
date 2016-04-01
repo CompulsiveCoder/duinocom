@@ -4,9 +4,7 @@ echo "Dir: $PWD"
 DIR=$PWD
 
 sudo apt-get update
-sudo apt-get install -y git wget mono-complete
-
-sudo apt-get install arduino python-configobj python-setuptools git python-jinja2 python-serial python-pip
+sudo apt-get install -y git wget mono-complete arduino python-configobj python-setuptools git python-jinja2 python-serial python-pip
 sudo pip install glob2
 sudo apt-get install picocom
 
