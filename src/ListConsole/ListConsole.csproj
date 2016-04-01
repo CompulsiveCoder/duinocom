@@ -7,7 +7,6 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>duinocom.ls</RootNamespace>
     <AssemblyName>duinocom-ls</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
