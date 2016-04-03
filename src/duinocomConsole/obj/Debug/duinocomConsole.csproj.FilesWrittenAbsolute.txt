@@ -1,5 +1,0 @@
-/home/j/cloud/projects/duinocom/src/duinocomConsole/obj/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.cs
-/home/j/cloud/projects/duinocom/bin/Debug/duinocom.exe.mdb
-/home/j/cloud/projects/duinocom/bin/Debug/duinocom.exe
-/home/j/cloud/projects/duinocom/src/duinocomConsole/obj/Debug/duinocom.exe
-/home/j/cloud/projects/duinocom/src/duinocomConsole/obj/Debug/duinocom.exe.mdb

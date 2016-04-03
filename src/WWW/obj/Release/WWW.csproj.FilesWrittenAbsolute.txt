@@ -1,8 +1,0 @@
-/home/j/cloud/projects/duinocom/src/WWW/obj/Release/.NETFramework,Version=v4.0.AssemblyAttribute.cs
-/home/j/cloud/projects/duinocom/src/WWW/bin/WWW2.dll.mdb
-/home/j/cloud/projects/duinocom/src/WWW/bin/WWW2.dll
-/home/j/cloud/projects/duinocom/src/WWW/obj/Release/WWW2.dll
-/home/j/cloud/projects/duinocom/src/WWW/obj/Release/WWW2.dll.mdb
-/home/j/cloud/projects/duinocom/src/WWW/bin/duinocom.dll
-/home/j/cloud/projects/duinocom/src/WWW/bin/duinocom.exe.mdb
-/home/j/cloud/projects/duinocom/src/WWW/bin/duinocom.dll.mdb
