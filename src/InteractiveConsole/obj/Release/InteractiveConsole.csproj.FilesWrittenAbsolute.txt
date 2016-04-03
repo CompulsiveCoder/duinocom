@@ -1,0 +1,5 @@
+/home/j/cloud/projects/duinocom/src/InteractiveConsole/obj/Release/.NETFramework,Version=v4.0.AssemblyAttribute.cs
+/home/j/cloud/projects/duinocom/bin/Release/duinocom-i.exe.mdb
+/home/j/cloud/projects/duinocom/bin/Release/duinocom-i.exe
+/home/j/cloud/projects/duinocom/src/InteractiveConsole/obj/Release/duinocom-i.exe
+/home/j/cloud/projects/duinocom/src/InteractiveConsole/obj/Release/duinocom-i.exe.mdb

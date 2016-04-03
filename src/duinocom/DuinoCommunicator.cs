@@ -10,24 +10,30 @@ namespace duinocom
 	{
 		public string CommandLogPath = Path.GetFullPath ("commandLog.txt");
 		public SerialPort Port { get; set; }
+        public int BaudRate = 115200;
+        public string PortName { get; set; }
 
 		public DuinoCommunicator(string portName)
 		{
-			Port = new SerialPort(portName, 9600);
+            PortName = portName;
 		}
 
 		public DuinoCommunicator(SerialPort port)
 		{
 			Port = port;
+            PortName = port.PortName;
 		}
 
 		public DuinoCommunicator(DuinoPortDetector portDetector)
 		{
 			Port = portDetector.Detect ();
+            PortName = Port.PortName;
 		}
 
 		public void Open()
 		{
+            if (Port == null)
+                Port = new SerialPort(PortName, BaudRate);
 			Port.Open ();
 		}
 
@@ -43,28 +49,25 @@ namespace duinocom
 		}
 
 		public string SendAndRead(string arduinoCommand)
-		{
-      try
-      {
-  			if (!Port.IsOpen)
-  				Open ();
+        {
+            try {
+                if (!Port.IsOpen)
+                    Open ();
   			
-  			Thread.Sleep (1500); // Fails if this delay is any shorter
+                Thread.Sleep (1500); // Fails if this delay is any shorter
 
-  			Port.Write (arduinoCommand);
-  			Port.Write (Port.NewLine);
+                Port.Write (arduinoCommand);
+                Port.Write (Port.NewLine);
 
-  			Thread.Sleep (1000); // Fails if this delay is any shorter
+                Thread.Sleep (1000); // Fails if this delay is any shorter
 
-  			return Read ();
-      }
-      catch(Exception ex) {
-        throw ex;
-      }
-      finally {
-        Close ();
-      }
-		}
+                return Read ();
+            } catch (Exception ex) {
+                throw ex;
+            } finally {
+                Close ();
+            }
+        }
 
 		public string Read()
 		{

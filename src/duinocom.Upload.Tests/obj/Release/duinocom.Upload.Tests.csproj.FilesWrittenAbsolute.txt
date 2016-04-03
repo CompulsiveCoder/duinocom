@@ -1,0 +1,5 @@
+/home/j/cloud/projects/duinocom/src/duinocom.Upload.Tests/obj/Release/.NETFramework,Version=v4.0.AssemblyAttribute.cs
+/home/j/cloud/projects/duinocom/bin/Release/duinocom.Upload.Tests.dll.mdb
+/home/j/cloud/projects/duinocom/bin/Release/duinocom.Upload.Tests.dll
+/home/j/cloud/projects/duinocom/src/duinocom.Upload.Tests/obj/Release/duinocom.Upload.Tests.dll
+/home/j/cloud/projects/duinocom/src/duinocom.Upload.Tests/obj/Release/duinocom.Upload.Tests.dll.mdb

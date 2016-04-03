@@ -1,0 +1,5 @@
+/home/j/cloud/projects/duinocom/src/ListConsole/obj/Release/.NETFramework,Version=v4.0.AssemblyAttribute.cs
+/home/j/cloud/projects/duinocom/bin/Release/duinocom-ls.exe.mdb
+/home/j/cloud/projects/duinocom/bin/Release/duinocom-ls.exe
+/home/j/cloud/projects/duinocom/src/ListConsole/obj/Release/duinocom-ls.exe
+/home/j/cloud/projects/duinocom/src/ListConsole/obj/Release/duinocom-ls.exe.mdb

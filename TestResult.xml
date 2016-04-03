@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="" total="0" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2016-04-03" time="14:31:51">
+  <environment nunit-version="2.6.4.14350" clr-version="2.0.50727.1433" os-version="Unix 4.2.0.34" platform="Unix" cwd="/home/j/cloud/projects/duinocom" machine-name="j-pc" user="j" user-domain="j-pc" />
+  <culture-info current-culture="en-AU" current-uiculture="en-AU" />
+  <test-suite type="Test Project" name="" executed="True" result="Inconclusive" success="False" time="0.003" asserts="0" />
+</test-results>
