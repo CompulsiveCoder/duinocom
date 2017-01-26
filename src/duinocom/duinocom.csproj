@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>duinocom</RootNamespace>
     <AssemblyName>duinocom</AssemblyName>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>duinocom.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
