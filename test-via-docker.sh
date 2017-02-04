@@ -9,4 +9,4 @@
 
 sh build.sh
 
-docker run -i -v /var/run/docker.sock:/var/run/docker.sock -v $PWD:/duinocom compulsivecoder/ubuntu-mono /bin/bash -c "cd /duinocom && sh test-all.sh" #$TEST_CATEGORY"
+docker run -i -v /var/run/docker.sock:/var/run/docker.sock -v $PWD:/duinocom compulsivecoder/ubuntu-mono /bin/bash -c "cd /duinocom && sh build.sh && sh test-all.sh" #$TEST_CATEGORY"
