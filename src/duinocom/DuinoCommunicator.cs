@@ -11,8 +11,10 @@ namespace duinocom
 		public string CommandLogPath = Path.GetFullPath ("commandLog.txt");
 		public SerialPort Port { get; set; }
 
+		// These pauses are all hacks. It fails without them
 		public int LongPause = 1500;
 		public int ShortPause = 1000;
+		public int ReallyShortPause = 20;
 
 		public DuinoCommunicator(string portName)
 		{
@@ -80,7 +82,7 @@ namespace duinocom
 				intReturnASCII = Port.ReadByte ();
 				returnMessage = returnMessage + Convert.ToChar (intReturnASCII);
 				count--;
-				Thread.Sleep (20);
+				Thread.Sleep (ReallyShortPause);
 			}
 
 			return returnMessage.Trim();
@@ -95,11 +97,11 @@ namespace duinocom
 			File.AppendAllText (CommandLogPath, Environment.NewLine + Environment.NewLine);
 		}
 
-    public void Close()
-    {
-      if (Port.IsOpen)
-        Port.Close ();
-    }
+    	public void Close()
+		{
+			if (Port.IsOpen)
+				Port.Close ();
+		}
 
 		public static DuinoCommunicator New(string identifier)
 		{
@@ -112,7 +114,7 @@ namespace duinocom
 
 		public void Dispose ()
 		{
-      Close ();
+			Close ();
 		}
 
 		#endregion
