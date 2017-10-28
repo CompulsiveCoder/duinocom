@@ -1,5 +1,7 @@
-echo "Getting libraries for ipfs-cs project"
+echo "Getting libraries for duinocom project"
 echo "Dir: $PWD"
+
+cert-sync --quiet /etc/ssl/certs/ca-certificates.crt
 
 NUGET_FILE="nuget.exe"
 
