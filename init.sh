@@ -1,6 +1,6 @@
 DIR=$PWD
 
-echo "Initializing ipfs-cs project"
+echo "Initializing duinocom project"
 echo "Dir: $PWD"
 
 cd lib
