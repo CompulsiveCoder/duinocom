@@ -10,6 +10,8 @@ namespace duinocom
 	{
 		public string CommandLogPath = Path.GetFullPath ("commandLog.txt");
 		public SerialPort Port { get; set; }
+        public int BaudRate = 115200;
+        public string PortName { get; set; }
 
 		// These pauses are all hacks. It fails without them
 		public int LongPause = 1500;
@@ -18,7 +20,7 @@ namespace duinocom
 
 		public DuinoCommunicator(string portName)
 		{
-			Port = new SerialPort(portName, 9600);
+            PortName = portName;
 		}
 
 		public DuinoCommunicator(string portName, int baudRate)
@@ -29,15 +31,19 @@ namespace duinocom
 		public DuinoCommunicator(SerialPort port)
 		{
 			Port = port;
+            PortName = port.PortName;
 		}
 
 		public DuinoCommunicator(DuinoPortDetector portDetector)
 		{
 			Port = portDetector.Detect ();
+            PortName = Port.PortName;
 		}
 
 		public void Open()
 		{
+            if (Port == null)
+                Port = new SerialPort(PortName, BaudRate);
 			Port.Open ();
 		}
 

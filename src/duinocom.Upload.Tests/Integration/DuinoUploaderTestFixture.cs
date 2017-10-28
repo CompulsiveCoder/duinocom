@@ -4,7 +4,7 @@ using System.IO;
 
 namespace duinocom.Upload.Tests.Integration
 {
-  [TestFixture]
+  [TestFixture(Category="Arduino")]
   public class DuinoUploaderTestFixture
   {
     string blinkSketchCode = @"

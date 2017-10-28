@@ -1,18 +1,16 @@
 echo "Preparing for duinocom project"
 echo "Dir: $PWD"
 
-DIR=$PWD
 
-sudo apt-get update
-sudo apt-get install -y git wget mono-complete arduino python-configobj python-setuptools git python-jinja2 python-serial python-pip
-sudo pip install glob2
-sudo apt-get install picocom
+# mono
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+echo "deb http://download.mono-project.com/repo/debian wheezy main" | sudo tee /etc/apt/sources.list.d/mono-xamarin.list
 
-cd lib
-git clone git://github.com/amperka/ino.git
-cd ino
-sudo make install
+sudo apt-get update &&
+sudo apt-get install -y git wget mono-devel mono-complete &&
 
-cd $DIR
+# platform.io
+sudo python -c "$(curl -fsSL https://raw.githubusercontent.com/platformio/platformio/master/scripts/get-platformio.py)"
 
-mozroots --import --sync
+# docker
+sudo curl -sSL https://get.docker.com/ | sudo sh
