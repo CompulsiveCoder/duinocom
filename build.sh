@@ -9,4 +9,4 @@ fi
 
 echo "Mode: $MODE"
 
-xbuild src/duinocom.sln /p:Configuration=$MODE
+msbuild src/duinocom.sln /p:Configuration=$MODE
